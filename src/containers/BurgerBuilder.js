@@ -11,12 +11,23 @@ const INGREDIENTS_PRICE = {
 
 function BurgerBuilder() {
   const [totalPrice, setTotalPrice] = useState(20);
+  const [purchase, setPurchase] = useState(false);
   const [ingredients, setIngredients] = useState({
     tomato: 0,
     lettuce: 0,
     cheese: 0,
     patty: 0
   });
+
+  const purchaseHandler = (ingredients) => {
+    const sum = Object.keys(ingredients).map(igKey => {
+      return ingredients[igKey];
+    }).reduce((acc, curr) => {
+      return acc + curr;
+    }, 0);
+
+    setPurchase(sum > 0);
+  }
 
   const addIngredientsHandler = (type) => {
     const oldCount = ingredients[type];
@@ -27,6 +38,7 @@ function BurgerBuilder() {
 
     const newPrice = totalPrice + INGREDIENTS_PRICE[type];
     setTotalPrice(newPrice);
+    purchaseHandler(updatedIngredients);
   }
 
   const removeIngredientsHandler = (type) => {
@@ -37,8 +49,9 @@ function BurgerBuilder() {
     updatedIngredients[type] = ingredients[type] - 1;
     setIngredients(updatedIngredients);
 
-    const newPrice = totalPrice + INGREDIENTS_PRICE[type];
+    const newPrice = totalPrice - INGREDIENTS_PRICE[type];
     setTotalPrice(newPrice);
+    purchaseHandler(updatedIngredients); //state is not updated instantly so we manully pass most recent value
   }
 
   const disabledInfo = { ...ingredients };
@@ -53,6 +66,8 @@ function BurgerBuilder() {
         addIngredients={addIngredientsHandler}
         removeIngredients={removeIngredientsHandler}
         disabled={disabledInfo}
+        purchase={purchase}
+        price={totalPrice}
       />
     </div>
   );
