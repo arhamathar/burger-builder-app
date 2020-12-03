@@ -28,7 +28,7 @@
 .SingleController button:hover:disabled {
     background-color: #AC9980;
     color: #ccc;
-    cursor: not-allowed;
+    cursor: default;
 }
 
 .Label {
