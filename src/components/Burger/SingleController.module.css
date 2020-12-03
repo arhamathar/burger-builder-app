@@ -1,0 +1,73 @@
+.SingleController {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0;
+    font-size: 1rem;
+}
+
+.SingleController button {
+    display: block;
+    font: inherit;
+    padding: 5px;
+    margin: 0 1rem;
+    width: 8rem;
+    border: 1px solid #AA6817;
+    cursor: pointer;
+    outline: none;
+    letter-spacing: 1px;
+}
+
+.SingleController button:disabled {
+    background-color: #AC9980;
+    border: 1px solid #7E7365;
+    color: #ccc;
+    cursor: default;
+}
+
+.SingleController button:hover:disabled {
+    background-color: #AC9980;
+    color: #ccc;
+    cursor: not-allowed;
+}
+
+.Label {
+    padding: 1rem;
+    font-weight: bold;
+    width: 8rem;
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #303030;
+}
+
+@media(max-width: 500px){
+    .Label{
+        width: 6rem;
+        letter-spacing: 0;
+    }
+    .SingleController button{
+        width: 6rem;
+        margin: 0 5px;
+    }
+}
+
+.SingleController .Less {  
+    background-color: #D39952;
+    color: white;
+}
+
+.SingleController .More {
+    background-color: #8F5E1E;
+    color: white;
+}
+
+.SingleController .Less:hover, .SingleController .Less:active {  
+    background-color: #DAA972;
+    color: white;
+}
+
+.SingleController .More:hover,.SingleController .More:active {
+    background-color: #99703F;
+    color: white;
+}
