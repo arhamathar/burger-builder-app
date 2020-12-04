@@ -57,8 +57,12 @@ function BurgerBuilder() {
     setPurchase(sum > 0);
   }
 
-  const onClickHandler = () => {
+  const showModalHandler = () => {
     setShowModal(true);
+  }
+
+  const closeModalHandler = () => {
+    setShowModal(false);
   }
 
   const disabledInfo = { ...ingredients };
@@ -68,7 +72,7 @@ function BurgerBuilder() {
 
   return (
     <React.Fragment>
-      <Modal show={showModal}>
+      <Modal show={showModal} close={closeModalHandler}>
         <Summary ingredients={ingredients} />
       </Modal>
       <Burger ingredients={ingredients} />
@@ -78,7 +82,7 @@ function BurgerBuilder() {
         disabled={disabledInfo}
         purchase={purchase}
         price={totalPrice}
-        handleClick={onClickHandler}
+        handleClick={showModalHandler}
       />
     </React.Fragment>
   );
