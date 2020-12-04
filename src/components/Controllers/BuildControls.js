@@ -27,6 +27,7 @@ function BuildControls(props) {
             <button
                 disabled={!props.purchase}
                 className={classes.OrderButton}
+                onClick={props.handleClick}
             >Order Now</button>
         </div>
     );

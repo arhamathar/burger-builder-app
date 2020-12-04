@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Burger from '../components/Burger/Burger';
-import BuildControls from '../components/Burger/BuildControls';
+import Modal from '../components/UI/Modal';
+import BuildControls from '../components/Controllers/BuildControls';
+import Summary from '../components/Burger/Summary';
 
 const INGREDIENTS_PRICE = {
   lettuce: 15,
@@ -12,22 +14,13 @@ const INGREDIENTS_PRICE = {
 function BurgerBuilder() {
   const [totalPrice, setTotalPrice] = useState(20);
   const [purchase, setPurchase] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [ingredients, setIngredients] = useState({
     tomato: 0,
     lettuce: 0,
     cheese: 0,
     patty: 0
   });
-
-  const purchaseHandler = (ingredients) => {
-    const sum = Object.keys(ingredients).map(igKey => {
-      return ingredients[igKey];
-    }).reduce((acc, curr) => {
-      return acc + curr;
-    }, 0);
-
-    setPurchase(sum > 0);
-  }
 
   const addIngredientsHandler = (type) => {
     const oldCount = ingredients[type];
@@ -54,13 +47,30 @@ function BurgerBuilder() {
     purchaseHandler(updatedIngredients); //state is not updated instantly so we manully pass most recent value
   }
 
+  const purchaseHandler = (ingredients) => {
+    const sum = Object.keys(ingredients).map(igKey => {
+      return ingredients[igKey];
+    }).reduce((acc, curr) => {
+      return acc + curr;
+    }, 0);
+
+    setPurchase(sum > 0);
+  }
+
+  const onClickHandler = () => {
+    setShowModal(true);
+  }
+
   const disabledInfo = { ...ingredients };
   for (let key in disabledInfo) {
     disabledInfo[key] = disabledInfo[key] <= 0;
   }
 
   return (
-    <div>
+    <React.Fragment>
+      <Modal show={showModal}>
+        <Summary ingredients={ingredients} />
+      </Modal>
       <Burger ingredients={ingredients} />
       <BuildControls
         addIngredients={addIngredientsHandler}
@@ -68,8 +78,9 @@ function BurgerBuilder() {
         disabled={disabledInfo}
         purchase={purchase}
         price={totalPrice}
+        handleClick={onClickHandler}
       />
-    </div>
+    </React.Fragment>
   );
 }
 
