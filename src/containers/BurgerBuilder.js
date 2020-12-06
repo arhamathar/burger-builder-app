@@ -4,6 +4,7 @@ import Burger from '../components/Burger/Burger';
 import Modal from '../components/UI/Modal/Modal';
 import BuildControls from '../components/Controllers/BuildControls';
 import Summary from '../components/Burger/Summary';
+import Spinner from '../components/UI/Spinner/Spinner';
 
 const INGREDIENTS_PRICE = {
     lettuce: 15,
@@ -16,6 +17,7 @@ function BurgerBuilder() {
     const [totalPrice, setTotalPrice] = useState(20);
     const [purchase, setPurchase] = useState(false);
     const [showModal, setShowModal] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [ingredients, setIngredients] = useState({
         tomato: 0,
         lettuce: 0,
@@ -67,7 +69,7 @@ function BurgerBuilder() {
     }
 
     const confirmPurchaseHandler = async () => {
-        alert('Order Submitted !');
+        setIsLoading(true);
         const order = {
             ingredients: ingredients,
             price: totalPrice,
@@ -85,8 +87,12 @@ function BurgerBuilder() {
         try {
             const response = await axios.post('/orders.json', order);
             console.log(response);
+            setIsLoading(false);
+            setShowModal(false);
         } catch (err) {
             console.log(err);
+            setIsLoading(false);
+            setShowModal(false);
         }
     }
 
@@ -98,11 +104,12 @@ function BurgerBuilder() {
     return (
         <React.Fragment>
             <Modal show={showModal} close={closeModalHandler}>
-                <Summary
+                <Spinner show={isLoading} />
+                {!isLoading && <Summary
                     ingredients={ingredients}
                     price={totalPrice}
                     confirmPurchase={confirmPurchaseHandler}
-                />
+                />}
             </Modal>
             <Burger ingredients={ingredients} />
             <BuildControls
