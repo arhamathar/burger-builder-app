@@ -1,5 +1,5 @@
 import React from 'react';
-import Backdrop from './Backdrop';
+import Backdrop from '../Backdrop';
 import classes from './Modal.module.css';
 
 function Modal(props) {

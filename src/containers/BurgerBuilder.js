@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import axios from '../axios-orders';
 import Burger from '../components/Burger/Burger';
-import Modal from '../components/UI/Modal';
+import Modal from '../components/UI/Modal/Modal';
 import BuildControls from '../components/Controllers/BuildControls';
 import Summary from '../components/Burger/Summary';
 
@@ -65,8 +66,28 @@ function BurgerBuilder() {
         setShowModal(false);
     }
 
-    const confirmPurchaseHandler = () => {
+    const confirmPurchaseHandler = async () => {
         alert('Order Submitted !');
+        const order = {
+            ingredients: ingredients,
+            price: totalPrice,
+            customer: {
+                name: "Arham Athar",
+                email: "arham@gmail.com",
+                address: {
+                    street: 'Pateri',
+                    pinCode: 485001,
+                    state: 'M.P'
+                }
+            },
+            deliveryMethod: 'express'
+        }
+        try {
+            const response = await axios.post('/orders.json', order);
+            console.log(response);
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     const disabledInfo = { ...ingredients };
@@ -81,7 +102,6 @@ function BurgerBuilder() {
                     ingredients={ingredients}
                     price={totalPrice}
                     confirmPurchase={confirmPurchaseHandler}
-                    cancelPurchase={closeModalHandler}
                 />
             </Modal>
             <Burger ingredients={ingredients} />
