@@ -1,0 +1,28 @@
+.SideDrawer{
+    position: fixed;
+    width: 28rem;
+    max-width: 70%;
+    left: 0;
+    top: 0;
+    height: 100%;
+    z-index: 200;
+    padding: 3rem 2rem;
+    background-color: #8f5c2c;
+    box-sizing: border-box;
+    transition: transform 0.3s ease-out;
+    text-align: center;
+}
+
+.Open{
+    transform: translateX(0);
+}
+
+.Close{
+    transform: translateX(-100%);
+}
+
+@media(min-width: 600px){
+    .SideDrawer{
+        display: none;
+    }
+}

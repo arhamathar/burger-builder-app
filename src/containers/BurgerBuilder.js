@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from '../axios-orders';
 import Burger from '../components/Burger/Burger';
 import Modal from '../components/UI/Modal/Modal';
@@ -18,12 +18,22 @@ function BurgerBuilder() {
     const [purchase, setPurchase] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [ingredients, setIngredients] = useState({
-        tomato: 0,
-        lettuce: 0,
-        cheese: 0,
-        patty: 0
-    });
+    const [ingredients, setIngredients] = useState(null);
+
+    useEffect(() => {
+        setIsLoading(true);
+        const getIngredients = async () => {
+            try {
+                const response = await axios.get('/ingredients.json');
+                setIngredients(response.data);
+                setIsLoading(false);
+            } catch (err) {
+                console.log(err);
+                setIsLoading(false);
+            }
+        }
+        getIngredients();
+    }, []);
 
     const addIngredientsHandler = (type) => {
         const oldCount = ingredients[type];
@@ -105,21 +115,22 @@ function BurgerBuilder() {
         <React.Fragment>
             <Modal show={showModal} close={closeModalHandler}>
                 <Spinner show={isLoading} />
-                {!isLoading && <Summary
+                {!isLoading && ingredients && <Summary
                     ingredients={ingredients}
                     price={totalPrice}
                     confirmPurchase={confirmPurchaseHandler}
                 />}
             </Modal>
-            <Burger ingredients={ingredients} />
-            <BuildControls
+            <Spinner show={isLoading} />
+            {ingredients && <Burger ingredients={ingredients} />}
+            {ingredients && <BuildControls
                 addIngredients={addIngredientsHandler}
                 removeIngredients={removeIngredientsHandler}
                 disabled={disabledInfo}
                 purchase={purchase}
                 price={totalPrice}
                 handleClick={showModalHandler}
-            />
+            />}
         </React.Fragment>
     );
 }

@@ -1,18 +1,19 @@
 import React from 'react';
 import BurgerLogo from '../../assets/burgerLogo.png';
 
-const styleClass = {
-    backgroundColor: '#fff',
-    height: '80%',
-    padding: '8px',
-    borderRadius: '5px',
-    boxSizing: 'border-box'
-}
+function Logo(props) {
+    const styleClass = {
+        backgroundColor: '#fff',
+        height: props.height,
+        padding: '8px',
+        borderRadius: '5px',
+        boxSizing: 'border-box',
+        display: 'inline-block'
+    }
 
-function Logo() {
     return (
         <div style={styleClass}>
-            <img src={BurgerLogo} alt="logo" style={{ height: '100%' }} />
+            <img src={BurgerLogo} alt="logo" style={{ height: "100%" }} />
         </div>
     );
 }

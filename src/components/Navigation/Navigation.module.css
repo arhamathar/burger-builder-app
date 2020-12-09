@@ -34,3 +34,29 @@
     border-bottom: 5px solid #40a4cb;
     color: #fff;
 }
+
+@media(max-width: 599px){  
+    .NavigationItems{
+        height: 100%;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .NavigationItems li{
+        margin: 1rem auto;
+        box-sizing: border-box;
+        font-size: 1.5rem;
+    }
+    
+    .NavigationItems a{
+        letter-spacing: 2px;
+        width: 100%;
+    }
+    
+    .NavigationItems a:hover,
+    .NavigationItems a:active,
+    .NavigationItems a.active{
+        color: #40a4cb;
+    }
+    
+}
