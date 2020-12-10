@@ -80,27 +80,6 @@
   box-shadow: inset 1px 3px #c9c9c9;
 }
 
-@media(min-width: 786px){
-  .Seeds1:after{
-    width: 4.25rem;
-    height: 0.5rem;
-    left: -190px;
-    top: -65px;
-  }
-  .Seeds2:before{
-    width: 5rem;
-    height: 0.5rem;
-    left: 115px;
-    top: -25px;
-    transform: rotate(145deg);
-  }
-  .Seeds1:before{
-    width: 5rem;
-    height: 0.75rem;
-    top: 50px;
-  }
-}
-
 .Patty {
   width: 80%;
   height: 8%;

@@ -1,14 +1,23 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
+import Checkout from './containers/Checkout';
 import BurgerBuilder from './containers/BurgerBuilder';
 
 function App() {
   return (
-    <React.Fragment>
+    <Router>
       <Layout>
-        <BurgerBuilder />
+        <Switch>
+          <Route to="/" exact>
+            <BurgerBuilder />
+          </Route>
+          <Route to="/checkout">
+            <Checkout />
+          </Route>
+        </Switch>
       </Layout>
-    </React.Fragment>
+    </Router>
   );
 }
 

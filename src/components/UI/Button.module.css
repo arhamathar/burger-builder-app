@@ -1,6 +1,6 @@
 .Button {
     background-color: transparent;
-    border: 1px solid #5C9210;
+    border: 2px solid #5C9210;
     color: white;
     outline: none;
     cursor: pointer;
@@ -29,7 +29,14 @@
 .Success {
     color: #5C9210;
 }
+.Success:hover{
+    background-color: #5C9210;
+}
 
 .Danger {
-    color: #944317;
+    color: #bf1e13;    
+    border: 2px solid #bf1e13;
+}
+.Danger:hover{
+    background-color: #bf1e13;
 }
