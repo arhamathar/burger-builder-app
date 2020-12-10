@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../axios-orders';
 import Burger from '../components/Burger/Burger';
-import Modal from '../components/UI/Modal/Modal';
-import BuildControls from '../components/Controllers/BuildControls';
 import Summary from '../components/Burger/Summary';
+import Modal from '../components/UI/Modal/Modal';
 import Spinner from '../components/UI/Spinner/Spinner';
+import ErrorModal from '../components/UI/Error/ErrorModal';
+import BuildControls from '../components/Controllers/BuildControls';
 
 const INGREDIENTS_PRICE = {
     lettuce: 15,
@@ -17,6 +18,7 @@ function BurgerBuilder() {
     const [totalPrice, setTotalPrice] = useState(20);
     const [purchase, setPurchase] = useState(false);
     const [showModal, setShowModal] = useState(false);
+    const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [ingredients, setIngredients] = useState(null);
 
@@ -28,7 +30,7 @@ function BurgerBuilder() {
                 setIngredients(response.data);
                 setIsLoading(false);
             } catch (err) {
-                console.log(err);
+                setError(err.message);
                 setIsLoading(false);
             }
         }
@@ -95,12 +97,11 @@ function BurgerBuilder() {
             deliveryMethod: 'express'
         }
         try {
-            const response = await axios.post('/orders.json', order);
-            console.log(response);
+            await axios.post('/orders.json', order);
             setIsLoading(false);
             setShowModal(false);
         } catch (err) {
-            console.log(err);
+            setError(err.message);
             setIsLoading(false);
             setShowModal(false);
         }
@@ -111,8 +112,13 @@ function BurgerBuilder() {
         disabledInfo[key] = disabledInfo[key] <= 0;
     }
 
+    const clearError = () => {
+        setError(null);
+    }
+
     return (
         <React.Fragment>
+            <ErrorModal showError={error} onClear={clearError} />
             <Modal show={showModal} close={closeModalHandler}>
                 <Spinner show={isLoading} />
                 {!isLoading && ingredients && <Summary
