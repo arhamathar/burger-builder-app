@@ -9,10 +9,10 @@ function App() {
     <Router>
       <Layout>
         <Switch>
-          <Route to="/" exact>
+          <Route exact path="/" >
             <BurgerBuilder />
           </Route>
-          <Route to="/checkout">
+          <Route path="/checkout">
             <Checkout />
           </Route>
         </Switch>

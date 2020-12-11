@@ -5,12 +5,8 @@ import Button from '../UI/Button';
 
 const CheckoutSumStyle = styled.div`
     text-align: center;
-    font-size: 2rem;
-    width: 80%;
+    font-size: 1.5rem;
     margin: 2rem auto;
-    @media(min-width: 600px){
-        width: 500px;
-    }
 `;
 
 function CheckoutSum(props) {
@@ -20,8 +16,8 @@ function CheckoutSum(props) {
             <div style={{ width: '100%', margin: '1rem auto' }}>
                 <Burger ingredients={props.ingredients} />
             </div>
-            <Button clicked btnType="Danger">CANCEL</Button>
-            <Button clicked btnType="Success">CONFIRM</Button>
+            <Button clicked={props.checkoutCancel} btnType="Danger">CANCEL</Button>
+            <Button clicked={props.checkoutConfirm} btnType="Success">CONFIRM</Button>
         </CheckoutSumStyle>
     );
 }

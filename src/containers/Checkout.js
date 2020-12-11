@@ -1,17 +1,31 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import CheckoutSum from '../components/Order/CheckoutSum';
 
 function Checkout() {
+    const history = useHistory();
     const [ingredients, setIngredients] = useState({
-        cheese: 1,
-        lettuce: 1,
+        cheese: 2,
+        lettuce: 2,
         patty: 2,
         tomato: 1
     });
 
+    const checkoutConfirmHandler = () => {
+        history.replace("/checkout/user-contack");
+    }
+
+    const checkoutCancelHandler = () => {
+        history.goBack();
+    }
+
     return (
         <div>
-            <CheckoutSum ingredients={ingredients} />
+            <CheckoutSum
+                ingredients={ingredients}
+                checkoutCancel={checkoutCancelHandler}
+                checkoutConfirm={checkoutConfirmHandler}
+            />
         </div>
     );
 }
