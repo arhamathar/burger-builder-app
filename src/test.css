@@ -1,0 +1,11 @@
+div{
+    text-transform: capitalize;
+    display: inline-block;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+}
+@media(max-width: 1000px){
+    div{
+        width: 100%
+    }
+}
