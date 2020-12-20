@@ -12,7 +12,7 @@ function Checkout() {
     });
 
     const checkoutConfirmHandler = () => {
-        history.replace("/checkout/user-contack");
+        history.replace("/checkout/user-contact");
     }
 
     const checkoutCancelHandler = () => {

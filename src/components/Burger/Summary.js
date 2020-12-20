@@ -25,7 +25,7 @@ function Summary(props) {
             <p><strong>Total Price: ₹ {props.price}</strong></p>
             <p>Continue to Checkout ?</p>
             {/* <Button btnType="Danger" clicked={props.cancelPurchase}>Cancel</Button> */}
-            <Button btnType="Success" clicked={props.confirmPurchase}>Confirm</Button>
+            <Button btnType="Success" clicked={props.confirmPurchase}>Continue</Button>
         </Fragment>
     );
 }

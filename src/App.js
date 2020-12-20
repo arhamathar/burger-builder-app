@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
 import Checkout from './containers/Checkout';
 import BurgerBuilder from './containers/BurgerBuilder';
+import MyOrders from './containers/MyOrders';
 
 function App() {
   return (
@@ -14,6 +15,9 @@ function App() {
           </Route>
           <Route path="/checkout">
             <Checkout />
+          </Route>
+          <Route path="/orders">
+            <MyOrders />
           </Route>
         </Switch>
       </Layout>
