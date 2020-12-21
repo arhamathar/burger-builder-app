@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import Button from '../UI/Button';
+import Button from '../FormElements/Button/Button';
 
 function Summary(props) {
     const ingredientsSummary = Object.keys(props.ingredients).map(igKey => {

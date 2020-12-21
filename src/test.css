@@ -1,11 +1,9 @@
 div{
-    text-transform: capitalize;
-    display: inline-block;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-}
-@media(max-width: 1000px){
-    div{
-        width: 100%
-    }
+    margin: 2rem auto;
+    width: 75%;
+    text-align: center;
+    box-shadow: 0.5rem 1rem #ccc;
+    border: 1px solid #eee;
+    padding: 1rem;
+    box-sizing: border-box;
 }

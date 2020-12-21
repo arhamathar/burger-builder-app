@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
 import Checkout from './containers/Checkout';
 import BurgerBuilder from './containers/BurgerBuilder';
+import ContactData from './containers/ContactData';
 import MyOrders from './containers/MyOrders';
 
 function App() {
@@ -18,6 +19,9 @@ function App() {
           </Route>
           <Route path="/orders">
             <MyOrders />
+          </Route>
+          <Route path="/contact-data">
+            <ContactData />
           </Route>
         </Switch>
       </Layout>

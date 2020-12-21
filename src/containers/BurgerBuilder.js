@@ -84,30 +84,6 @@ function BurgerBuilder() {
     }
 
     const confirmPurchaseHandler = async () => {
-        // setIsLoading(true);
-        // const order = {
-        //     ingredients: ingredients,
-        //     price: totalPrice,
-        //     customer: {
-        //         name: "Arham Athar",
-        //         email: "arham@gmail.com",
-        //         address: {
-        //             street: 'Pateri',
-        //             pinCode: 485001,
-        //             state: 'M.P'
-        //         }
-        //     },
-        //     deliveryMethod: 'express'
-        // }
-        // try {
-        //     await axios.post('/orders.json', order);
-        //     setIsLoading(false);
-        //     setShowModal(false);
-        // } catch (err) {
-        //     setError(err.message);
-        //     setIsLoading(false);
-        //     setShowModal(false);
-        // }
         history.push("/checkout");
     }
 

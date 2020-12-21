@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import SingleOrder from '../components/Order/SingleOrder';
 import ErrorModal from '../components/UI/Error/ErrorModal';
+import Spinner from '../components/UI/Spinner/Spinner';
 import axios from '../axios-orders';
 
 
 function MyOrders() {
     const [error, setError] = useState(false);
     const [orders, setOrders] = useState([]);
-    const [isloading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         setIsLoading(true);
@@ -39,7 +40,8 @@ function MyOrders() {
     return (
         <React.Fragment>
             <ErrorModal showError={error} onClear={clearErrorHandler} />
-            {orders.map(order => {
+            <Spinner show={isLoading} />
+            {orders && orders.map(order => {
                 return <SingleOrder
                     key={order.id}
                     price={order.price}
