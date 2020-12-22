@@ -10,7 +10,7 @@ const StyledDiv = styled.div`
     box-shadow: 0 4px 8px #ccc;
     border: 1px solid #ccc;
     padding: 1rem;
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     @media(min-width: 786px){
         width: 600px;
     }
@@ -18,12 +18,32 @@ const StyledDiv = styled.div`
 
 function ContactData() {
     const [isLoading, setIsLoading] = useState(false);
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [address, setAddress] = useState({
-        street: '',
-        pinCode: ''
+    const [name, setName] = useState({
+        value: '',
+        isValid: false
     });
+    const [email, setEmail] = useState({
+        value: '',
+        isValid: false
+    });
+    const [street, setStreet] = useState({
+        value: '',
+        isValid: false
+    });
+    const [pincode, setPincode] = useState({
+        value: '',
+        isValid: false
+    });
+    const [dropdown, setDropdown] = useState({
+        value: '',
+        isValid: false
+    });
+
+    const options = [
+        { value: 'fastest', displayValue: 'Fastest' },
+        { value: 'normal', displayValue: 'Normal' },
+        { value: 'cheapest', displayValue: 'Cheapest' }
+    ]
 
     const orderHandler = (e) => {
         e.preventDefault();
@@ -53,14 +73,57 @@ function ContactData() {
         // }
     }
 
+    const inputChangeHandler = (e) => {
+        console.log(e.target.value);
+    }
+
     return (
         <StyledDiv>
             <h4>Enter your Contact Data</h4>
             <form>
-                <Input inputtype="input" type="text" name="name" placeholder="Your Name" />
-                <Input inputtype="input" type="text" name="email" placeholder="Your email" />
-                <Input inputtype="input" type="text" name="street" placeholder="Street" />
-                <Input inputtype="input" type="text" name="pincode" placeholder="Pin Code" />
+                <Input
+                    inputtype="input"
+                    id="name"
+                    type="text"
+                    name="name"
+                    placeholder="Your Name"
+                    onChange={inputChangeHandler}
+                    value={name.value}
+                />
+                <Input
+                    inputtype="input"
+                    id="email"
+                    type="text"
+                    name="email"
+                    placeholder="Your email"
+                    onChange={inputChangeHandler}
+                    value={email.value}
+                />
+                <Input
+                    inputtype="input"
+                    id="street"
+                    type="text"
+                    name="street"
+                    placeholder="Street"
+                    onChange={inputChangeHandler}
+                    value={street.value}
+                />
+                <Input
+                    inputtype="input"
+                    id="pincode"
+                    type="text"
+                    name="pincode"
+                    placeholder="Pin Code"
+                    onChange={inputChangeHandler}
+                    value={pincode.value}
+                />
+                <Input
+                    inputtype="select"
+                    id="dropdown"
+                    options={options}
+                    onChange={inputChangeHandler}
+                    value={dropdown.value}
+                />
                 <Button clicked={orderHandler} btnType="Success">Order</Button>
             </form>
         </StyledDiv>
