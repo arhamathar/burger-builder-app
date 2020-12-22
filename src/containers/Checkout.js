@@ -1,18 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import CheckoutSum from '../components/Order/CheckoutSum';
 
-function Checkout() {
+function Checkout(props) {
     const history = useHistory();
-    const [ingredients, setIngredients] = useState({
-        cheese: 2,
-        lettuce: 2,
-        patty: 2,
-        tomato: 1
-    });
 
     const checkoutConfirmHandler = () => {
-        history.replace("/checkout/user-contact");
+        history.push("/contact-data");
     }
 
     const checkoutCancelHandler = () => {
@@ -22,7 +17,7 @@ function Checkout() {
     return (
         <div>
             <CheckoutSum
-                ingredients={ingredients}
+                ingredients={props.ings}
                 checkoutCancel={checkoutCancelHandler}
                 checkoutConfirm={checkoutConfirmHandler}
             />
@@ -30,4 +25,10 @@ function Checkout() {
     );
 }
 
-export default Checkout;
+const mapStateToProps = (state) => {
+    return {
+        ings: state.ingredients
+    };
+}
+
+export default connect(mapStateToProps)(Checkout);

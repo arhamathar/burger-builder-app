@@ -10,7 +10,7 @@ function Input(props) {
                     id={props.id}
                     {...props}
                     className={classes.InputElement}
-                    onChange={props.onChange}
+                    onChange={(e) => props.onChange(e, props.id)}
                     value={props.value}
                 />
             )
@@ -21,7 +21,7 @@ function Input(props) {
                     id={props.id}
                     {...props}
                     className={classes.InputElement}
-                    onChange={props.onChange}
+                    onChange={(e) => props.onChange(e, props.id)}
                     value={props.value}
                 />
             )
@@ -31,7 +31,7 @@ function Input(props) {
                 <select
                     id={props.id}
                     className={classes.InputElement}
-                    onChange={props.onChange}
+                    onChange={(e) => props.onChange(e, props.id)}
                     value={props.value}
                 >{props.options.map(option => {
                     return <option
@@ -50,7 +50,7 @@ function Input(props) {
                     id={props.id}
                     {...props}
                     className={classes.InputElement}
-                    onChange={props.onChange}
+                    onChange={(e) => props.onChange(e, props.id)}
                     value={props.value}
                 />
             )

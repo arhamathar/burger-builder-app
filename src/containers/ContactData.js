@@ -17,7 +17,7 @@ const StyledDiv = styled.div`
 `;
 
 function ContactData() {
-    const [isLoading, setIsLoading] = useState(false);
+    // const [isLoading, setIsLoading] = useState(false);
     const [name, setName] = useState({
         value: '',
         isValid: false
@@ -34,7 +34,7 @@ function ContactData() {
         value: '',
         isValid: false
     });
-    const [dropdown, setDropdown] = useState({
+    const [delivery, setDelivery] = useState({
         value: '',
         isValid: false
     });
@@ -73,14 +73,57 @@ function ContactData() {
         // }
     }
 
-    const inputChangeHandler = (e) => {
-        console.log(e.target.value);
+    const inputChangeHandler = (e, inputId) => {
+        switch (inputId) {
+            case 'name':
+                setName(prevState => {
+                    return {
+                        ...prevState,
+                        value: e.target.value
+                    }
+                });
+                break;
+            case 'email':
+                setEmail(prevState => {
+                    return {
+                        ...prevState,
+                        value: e.target.value
+                    }
+                });
+                break;
+            case 'street':
+                setStreet(prevState => {
+                    return {
+                        ...prevState,
+                        value: e.target.value
+                    }
+                });
+                break;
+            case 'pincode':
+                setPincode(prevState => {
+                    return {
+                        ...prevState,
+                        value: e.target.value
+                    }
+                });
+                break;
+            case 'delivery':
+                setDelivery(prevState => {
+                    return {
+                        ...prevState,
+                        value: e.target.value
+                    }
+                });
+                break;
+            default:
+                break;
+        }
     }
 
     return (
         <StyledDiv>
             <h4>Enter your Contact Data</h4>
-            <form>
+            <form onSubmit={orderHandler}>
                 <Input
                     inputtype="input"
                     id="name"
@@ -95,7 +138,7 @@ function ContactData() {
                     id="email"
                     type="text"
                     name="email"
-                    placeholder="Your email"
+                    placeholder="Your Email"
                     onChange={inputChangeHandler}
                     value={email.value}
                 />
@@ -119,15 +162,15 @@ function ContactData() {
                 />
                 <Input
                     inputtype="select"
-                    id="dropdown"
+                    id="delivery"
                     options={options}
                     onChange={inputChangeHandler}
-                    value={dropdown.value}
+                    value={delivery.value}
                 />
-                <Button clicked={orderHandler} btnType="Success">Order</Button>
+                <Button btnType="Success">Order</Button>
             </form>
         </StyledDiv>
-    )
+    );
 }
 
 export default ContactData;
