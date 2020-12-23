@@ -7,6 +7,14 @@ import Spinner from '../components/UI/Spinner/Spinner';
 import ErrorModal from '../components/UI/Error/ErrorModal';
 import Input from '../components/FormElements/Input/Input';
 import Button from '../components/FormElements/Button/Button';
+import {
+    validate,
+    VALIDATOR_REQUIRE,
+    VALIDATOR_EMAIL,
+    VALIDATOR_MAXLENGTH,
+    VALIDATOR_MINLENGTH
+} from '../utils/Validation';
+
 
 const StyledDiv = styled.div`
     margin: 2rem auto;
@@ -22,8 +30,9 @@ const StyledDiv = styled.div`
 `;
 
 function ContactData(props) {
-    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [formValidity, setFormValidity] = useState(false);
 
     const [name, setName] = useState({
         value: '',
@@ -42,9 +51,9 @@ function ContactData(props) {
         isValid: false
     });
     const [delivery, setDelivery] = useState({
-        value: '',
-        isValid: false
+        value: ''
     });
+
 
     const options = [
         { value: 'fastest', displayValue: 'Fastest' },
@@ -57,6 +66,12 @@ function ContactData(props) {
     const orderHandler = async (e) => {
         e.preventDefault();
         setIsLoading(true);
+        if (name.isValid && email.isValid && street.isValid && pincode.isValid) {
+            setFormValidity(true);
+        }
+        else {
+            setFormValidity(false);
+        }
         const order = {
             ingredients: props.ings,
             price: props.price,
@@ -71,7 +86,11 @@ function ContactData(props) {
             deliveryMethod: delivery
         }
         try {
+            if (!formValidity) {
+                return;
+            }
             await axios.post('/orders.json', order);
+            console.log(order);
             setIsLoading(false);
             history.push("/");
         } catch (err) {
@@ -86,7 +105,8 @@ function ContactData(props) {
                 setName(prevState => {
                     return {
                         ...prevState,
-                        value: e.target.value
+                        value: e.target.value,
+                        isValid: validate(e.target.value, [VALIDATOR_REQUIRE()])
                     }
                 });
                 break;
@@ -94,7 +114,8 @@ function ContactData(props) {
                 setEmail(prevState => {
                     return {
                         ...prevState,
-                        value: e.target.value
+                        value: e.target.value,
+                        isValid: validate(e.target.value, [VALIDATOR_EMAIL()])
                     }
                 });
                 break;
@@ -102,7 +123,8 @@ function ContactData(props) {
                 setStreet(prevState => {
                     return {
                         ...prevState,
-                        value: e.target.value
+                        value: e.target.value,
+                        isValid: validate(e.target.value, [VALIDATOR_REQUIRE()])
                     }
                 });
                 break;
@@ -110,7 +132,12 @@ function ContactData(props) {
                 setPincode(prevState => {
                     return {
                         ...prevState,
-                        value: e.target.value
+                        value: e.target.value,
+                        isValid: validate(e.target.value, [
+                            VALIDATOR_REQUIRE(),
+                            VALIDATOR_MINLENGTH(6),
+                            VALIDATOR_MAXLENGTH(6)
+                        ])
                     }
                 });
                 break;
@@ -137,7 +164,7 @@ function ContactData(props) {
             <StyledDiv>
                 {isLoading && <Spinner show={isLoading} />}
                 {!isLoading && <h4>Enter your Contact Data</h4>}
-                {!isLoading && <form onSubmit={orderHandler}>
+                {!isLoading && <form onSubmit={orderHandler} >
                     <Input
                         inputtype="input"
                         id="name"

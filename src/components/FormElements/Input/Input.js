@@ -3,13 +3,19 @@ import classes from './Input.module.css';
 
 function Input(props) {
     let inputElement = null;
+    const inputClass = [classes.InputElement];
+    // if (props.valid === 0) {
+    //     inputClass.push('Invalid')
+    // }
+    inputClass.push('Invalid');
+
     switch (props.inputtype) {
         case 'input':
             inputElement = (
                 <input
                     id={props.id}
                     {...props}
-                    className={classes.InputElement}
+                    className={inputClass.join(' ')}
                     onChange={(e) => props.onChange(e, props.id)}
                     value={props.value}
                 />
@@ -20,7 +26,7 @@ function Input(props) {
                 <textarea
                     id={props.id}
                     {...props}
-                    className={classes.InputElement}
+                    className={inputClass.join(' ')}
                     onChange={(e) => props.onChange(e, props.id)}
                     value={props.value}
                 />
@@ -49,7 +55,7 @@ function Input(props) {
                 <input
                     id={props.id}
                     {...props}
-                    className={classes.InputElement}
+                    className={inputClass.join(' ')}
                     onChange={(e) => props.onChange(e, props.id)}
                     value={props.value}
                 />
