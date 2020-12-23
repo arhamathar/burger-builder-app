@@ -1,13 +1,13 @@
 import React from 'react';
 import classes from './Input.module.css';
 
-function Input(props) {
+const Input = (props) => {
     let inputElement = null;
     const inputClass = [classes.InputElement];
-    // if (props.valid === 0) {
-    //     inputClass.push('Invalid')
-    // }
-    inputClass.push('Invalid');
+
+    if (props.valid === "false" && props.touch === "true") {
+        inputClass.push(classes.Invalid)
+    }
 
     switch (props.inputtype) {
         case 'input':

@@ -36,19 +36,23 @@ function ContactData(props) {
 
     const [name, setName] = useState({
         value: '',
-        isValid: false
+        isValid: false,
+        isTouch: false
     });
     const [email, setEmail] = useState({
         value: '',
-        isValid: false
+        isValid: false,
+        isTouch: false
     });
     const [street, setStreet] = useState({
         value: '',
-        isValid: false
+        isValid: false,
+        isTouch: false
     });
     const [pincode, setPincode] = useState({
         value: '',
-        isValid: false
+        isValid: false,
+        isTouch: false
     });
     const [delivery, setDelivery] = useState({
         value: ''
@@ -106,7 +110,8 @@ function ContactData(props) {
                     return {
                         ...prevState,
                         value: e.target.value,
-                        isValid: validate(e.target.value, [VALIDATOR_REQUIRE()])
+                        isValid: validate(e.target.value, [VALIDATOR_REQUIRE()]),
+                        isTouch: true
                     }
                 });
                 break;
@@ -115,7 +120,8 @@ function ContactData(props) {
                     return {
                         ...prevState,
                         value: e.target.value,
-                        isValid: validate(e.target.value, [VALIDATOR_EMAIL()])
+                        isValid: validate(e.target.value, [VALIDATOR_EMAIL()]),
+                        isTouch: true
                     }
                 });
                 break;
@@ -124,7 +130,8 @@ function ContactData(props) {
                     return {
                         ...prevState,
                         value: e.target.value,
-                        isValid: validate(e.target.value, [VALIDATOR_REQUIRE()])
+                        isValid: validate(e.target.value, [VALIDATOR_REQUIRE()]),
+                        isTouch: true
                     }
                 });
                 break;
@@ -137,7 +144,8 @@ function ContactData(props) {
                             VALIDATOR_REQUIRE(),
                             VALIDATOR_MINLENGTH(6),
                             VALIDATOR_MAXLENGTH(6)
-                        ])
+                        ]),
+                        isTouch: true
                     }
                 });
                 break;
@@ -173,6 +181,8 @@ function ContactData(props) {
                         placeholder="Your Name"
                         onChange={inputChangeHandler}
                         value={name.value}
+                        valid={name.isValid.toString()}
+                        touch={name.isTouch.toString()}
                     />
                     <Input
                         inputtype="input"
@@ -182,6 +192,8 @@ function ContactData(props) {
                         placeholder="Your Email"
                         onChange={inputChangeHandler}
                         value={email.value}
+                        valid={email.isValid.toString()}
+                        touch={email.isTouch.toString()}
                     />
                     <Input
                         inputtype="input"
@@ -191,6 +203,8 @@ function ContactData(props) {
                         placeholder="Street"
                         onChange={inputChangeHandler}
                         value={street.value}
+                        valid={street.isValid.toString()}
+                        touch={street.isTouch.toString()}
                     />
                     <Input
                         inputtype="input"
@@ -200,6 +214,8 @@ function ContactData(props) {
                         placeholder="Pin Code"
                         onChange={inputChangeHandler}
                         value={pincode.value}
+                        valid={pincode.isValid.toString()}
+                        touch={pincode.isTouch.toString()}
                     />
                     <Input
                         inputtype="select"
