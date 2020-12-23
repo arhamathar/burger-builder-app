@@ -55,7 +55,7 @@ function ContactData(props) {
         isTouch: false
     });
     const [delivery, setDelivery] = useState({
-        value: ''
+        value: 'fastest'
     });
 
 
@@ -70,12 +70,6 @@ function ContactData(props) {
     const orderHandler = async (e) => {
         e.preventDefault();
         setIsLoading(true);
-        if (name.isValid && email.isValid && street.isValid && pincode.isValid) {
-            setFormValidity(true);
-        }
-        else {
-            setFormValidity(false);
-        }
         const order = {
             ingredients: props.ings,
             price: props.price,
@@ -90,9 +84,6 @@ function ContactData(props) {
             deliveryMethod: delivery
         }
         try {
-            if (!formValidity) {
-                return;
-            }
             await axios.post('/orders.json', order);
             console.log(order);
             setIsLoading(false);
@@ -102,6 +93,8 @@ function ContactData(props) {
             setIsLoading(false);
         }
     }
+
+    // how to update state immediately in react see form validation
 
     const inputChangeHandler = (e, inputId) => {
         switch (inputId) {
@@ -159,6 +152,13 @@ function ContactData(props) {
                 break;
             default:
                 break;
+        }
+
+        if (name.isValid && email.isValid && street.isValid && pincode.isValid) {
+            setFormValidity(true);
+        }
+        else {
+            setFormValidity(false);
         }
     }
 
@@ -224,7 +224,7 @@ function ContactData(props) {
                         onChange={inputChangeHandler}
                         value={delivery.value}
                     />
-                    <Button btnType="Success">Order</Button>
+                    <Button disabled={!formValidity} btnType="Success">Order</Button>
                 </form>}
             </StyledDiv>
         </React.Fragment>

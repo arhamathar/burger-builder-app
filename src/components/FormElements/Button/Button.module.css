@@ -29,6 +29,7 @@
 .Success {
     color: #5C9210;
 }
+
 .Success:hover{
     background-color: #5C9210;
 }
@@ -37,6 +38,19 @@
     color: #bf1e13;    
     border: 2px solid #bf1e13;
 }
+
 .Danger:hover{
     background-color: #bf1e13;
+}
+
+Button:disabled{
+    cursor: not-allowed;
+    background-color: #ccc;
+    color: #777;
+    border: none;    
+}
+
+.Button:hover:disabled{
+    background-color: #ccc;
+    color: #777;
 }
