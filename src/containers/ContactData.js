@@ -184,7 +184,7 @@ function ContactData(props) {
                     />
                     <Input
                         inputtype="input"
-                        id="text"
+                        id="city"
                         type="text"
                         name="city"
                         placeholder="City name"

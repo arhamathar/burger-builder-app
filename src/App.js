@@ -4,7 +4,8 @@ import Layout from './components/Layout/Layout';
 import Checkout from './containers/Checkout';
 import BurgerBuilder from './containers/BurgerBuilder';
 import MyOrders from './containers/MyOrders';
-import ContactData from './containers/ContactData'
+import ContactData from './containers/ContactData';
+import SignUp from './containers/Auth/Signup';
 
 function App() {
     return (
@@ -22,6 +23,9 @@ function App() {
                     </Route>
                     <Route path='/contact-data'>
                         <ContactData />
+                    </Route>
+                    <Route path='/auth/signup'>
+                        <SignUp />
                     </Route>
                 </Switch>
             </Layout>
