@@ -10,7 +10,6 @@ import Button from '../components/FormElements/Button/Button';
 import {
     validate,
     VALIDATOR_REQUIRE,
-    VALIDATOR_EMAIL,
     VALIDATOR_MAXLENGTH,
     VALIDATOR_MINLENGTH
 } from '../utils/Validation';
@@ -39,7 +38,7 @@ function ContactData(props) {
         isValid: false,
         isTouch: false
     });
-    const [email, setEmail] = useState({
+    const [city, setCity] = useState({
         value: '',
         isValid: false,
         isTouch: false
@@ -75,9 +74,9 @@ function ContactData(props) {
             price: props.price,
             customer: {
                 name: name,
-                email: email,
                 address: {
                     street: street,
+                    city: city,
                     pinCode: pincode
                 }
             },
@@ -85,7 +84,6 @@ function ContactData(props) {
         }
         try {
             await axios.post('/orders.json', order);
-            console.log(order);
             setIsLoading(false);
             history.push("/");
         } catch (err) {
@@ -109,11 +107,11 @@ function ContactData(props) {
                 });
                 break;
             case 'email':
-                setEmail(prevState => {
+                setCity(prevState => {
                     return {
                         ...prevState,
                         value: e.target.value,
-                        isValid: validate(e.target.value, [VALIDATOR_EMAIL()]),
+                        isValid: validate(e.target.value, [VALIDATOR_REQUIRE()]),
                         isTouch: true
                     }
                 });
@@ -154,7 +152,7 @@ function ContactData(props) {
                 break;
         }
 
-        if (name.isValid && email.isValid && street.isValid && pincode.isValid) {
+        if (name.isValid && city.isValid && street.isValid && pincode.isValid) {
             setFormValidity(true);
         }
         else {
@@ -186,14 +184,14 @@ function ContactData(props) {
                     />
                     <Input
                         inputtype="input"
-                        id="email"
+                        id="text"
                         type="text"
-                        name="email"
-                        placeholder="Your Email"
+                        name="city"
+                        placeholder="City name"
                         onChange={inputChangeHandler}
-                        value={email.value}
-                        valid={email.isValid.toString()}
-                        touch={email.isTouch.toString()}
+                        value={city.value}
+                        valid={city.isValid.toString()}
+                        touch={city.isTouch.toString()}
                     />
                     <Input
                         inputtype="input"

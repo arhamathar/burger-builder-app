@@ -15,7 +15,6 @@ function MyOrders() {
         const sendRequest = async () => {
             try {
                 const response = await axios.get('/orders.json');
-                console.log(response.data);
                 let fetchedOrder = [];
                 for (let key in response.data) {
                     fetchedOrder.push({
