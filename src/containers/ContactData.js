@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from '../axios-orders';
 import { connect } from 'react-redux';
@@ -106,7 +106,7 @@ function ContactData(props) {
                     }
                 });
                 break;
-            case 'email':
+            case 'city':
                 setCity(prevState => {
                     return {
                         ...prevState,
@@ -151,14 +151,17 @@ function ContactData(props) {
             default:
                 break;
         }
+    }
 
+    // to update state immediately in react see form validation
+    useEffect(() => {
         if (name.isValid && city.isValid && street.isValid && pincode.isValid) {
             setFormValidity(true);
         }
         else {
             setFormValidity(false);
         }
-    }
+    }, [name.isValid, city.isValid, street.isValid, pincode.isValid])
 
     const clearError = () => {
         setError(null);
