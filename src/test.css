@@ -1,9 +1,4 @@
 div{
-    margin: 2rem auto;
-    width: 75%;
-    text-align: center;
-    box-shadow: 0.5rem 1rem #ccc;
-    border: 1px solid #eee;
-    padding: 1rem;
-    box-sizing: border-box;
+    text-decoration: none;
+    color: #bf1e13;
 }

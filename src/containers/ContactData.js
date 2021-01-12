@@ -169,7 +169,7 @@ function ContactData(props) {
             <ErrorModal showError={error} onClear={clearError} />
             <StyledDiv>
                 {isLoading && <Spinner show={isLoading} />}
-                {!isLoading && <h4>Enter your Contact Data</h4>}
+                {!isLoading && <h3>Enter your Contact Data</h3>}
                 {!isLoading && <form onSubmit={orderHandler} >
                     <Input
                         inputtype="input"

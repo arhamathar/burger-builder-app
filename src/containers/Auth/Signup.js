@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 // import axios from '../axios-orders';
 import styled from 'styled-components';
 import Spinner from '../../components/UI/Spinner/Spinner';
@@ -27,8 +27,18 @@ const StyledDiv = styled.div`
     }
 `;
 
+const styleLink = {
+    textDecoration: 'none',
+    color: '#bf1e13'
+}
+
+const StyledLink = styled.a`
+    text-decoration: none;
+    color: #bf1e13;
+`;
+
 function SignUp(props) {
-    const history = useHistory();
+    // const history = useHistory();
     const [error, setError] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [formValidity, setFormValidity] = useState(false);
@@ -50,6 +60,7 @@ function SignUp(props) {
     })
 
     const inputChangeHandler = (e, inputId) => {
+        console.log(e.target.value);
         switch (inputId) {
             case 'username':
                 setUsername(prevState => {
@@ -105,11 +116,11 @@ function SignUp(props) {
             <ErrorModal showError={error} onClear={clearError} />
             <StyledDiv>
                 {isLoading && <Spinner show={isLoading} />}
-                {!isLoading && <h4>SIGN UP</h4>}
+                {!isLoading && <h2 style={{ color: '#404040' }}>SIGN UP</h2>}
                 {!isLoading && <form >
                     <Input
                         inputtype="input"
-                        id="name"
+                        id="username"
                         type="text"
                         name="name"
                         placeholder="Your Name"
@@ -120,7 +131,7 @@ function SignUp(props) {
                     />
                     <Input
                         inputtype="input"
-                        id="text"
+                        id="email"
                         type="email"
                         name="email"
                         placeholder="xyz@gmail.com"
@@ -129,7 +140,23 @@ function SignUp(props) {
                         valid={email.isValid.toString()}
                         touch={email.isTouch.toString()}
                     />
-                    <Button disabled={!formValidity} btnType="Success">Order</Button>
+                    <Input
+                        inputtype="input"
+                        id="password"
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        onChange={inputChangeHandler}
+                        value={password.value}
+                        valid={password.isValid.toString()}
+                        touch={password.isTouch.toString()}
+                    />
+                    <Button disabled={!formValidity} btnType="Success">Sign Up</Button>
+                    <p>
+                        Have an account ?&nbsp;
+                        <Link style={styleLink} to="/auth/login">Log In </Link>
+                    </p>
+
                 </form>}
             </StyledDiv>
         </React.Fragment>

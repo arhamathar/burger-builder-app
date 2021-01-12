@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import axios from '../axios-orders';
 import { connect } from 'react-redux';
 import Burger from '../components/Burger/Burger';
 import Summary from '../components/Burger/Summary';
