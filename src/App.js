@@ -5,6 +5,7 @@ import Checkout from './containers/Checkout';
 import BurgerBuilder from './containers/BurgerBuilder';
 import MyOrders from './containers/MyOrders';
 import ContactData from './containers/ContactData';
+import LogIn from './containers/Auth/Login';
 import SignUp from './containers/Auth/Signup';
 
 function App() {
@@ -23,6 +24,9 @@ function App() {
                     </Route>
                     <Route path='/contact-data'>
                         <ContactData />
+                    </Route>
+                    <Route path='/auth/login'>
+                        <LogIn />
                     </Route>
                     <Route path='/auth/signup'>
                         <SignUp />

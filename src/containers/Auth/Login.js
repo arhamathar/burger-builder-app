@@ -32,17 +32,12 @@ const styleLink = {
     color: '#bf1e13'
 }
 
-function SignUp(props) {
+function LogIn(props) {
     // const history = useHistory();
     const [error, setError] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [formValidity, setFormValidity] = useState(false);
 
-    const [username, setUsername] = useState({
-        value: '',
-        isValid: false,
-        isTouch: false
-    });
     const [email, setEmail] = useState({
         value: '',
         isValid: false,
@@ -57,16 +52,6 @@ function SignUp(props) {
     const inputChangeHandler = (e, inputId) => {
         console.log(e.target.value);
         switch (inputId) {
-            case 'username':
-                setUsername(prevState => {
-                    return {
-                        ...prevState,
-                        value: e.target.value,
-                        isValid: validate(e.target.value, [VALIDATOR_REQUIRE()]),
-                        isTouch: true
-                    }
-                });
-                break;
             case 'email':
                 setEmail(prevState => {
                     return {
@@ -84,7 +69,7 @@ function SignUp(props) {
                         value: e.target.value,
                         isValid: validate(e.target.value, [
                             VALIDATOR_REQUIRE(),
-                            VALIDATOR_MINLENGTH(6)
+                            VALIDATOR_MINLENGTH(5)
                         ]),
                         isTouch: true
                     }
@@ -94,7 +79,7 @@ function SignUp(props) {
                 break;
         }
 
-        if (username.isValid && email.isValid && password.isValid) {
+        if (email.isValid && password.isValid) {
             setFormValidity(true);
         }
         else {
@@ -111,19 +96,8 @@ function SignUp(props) {
             <ErrorModal showError={error} onClear={clearError} />
             <StyledDiv>
                 {isLoading && <Spinner show={isLoading} />}
-                {!isLoading && <h2 style={{ color: '#404040' }}>SIGN UP</h2>}
+                {!isLoading && <h2 style={{ color: '#404040' }}>LOG IN</h2>}
                 {!isLoading && <form >
-                    <Input
-                        inputtype="input"
-                        id="username"
-                        type="text"
-                        name="name"
-                        placeholder="Your Name"
-                        onChange={inputChangeHandler}
-                        value={username.value}
-                        valid={username.isValid.toString()}
-                        touch={username.isTouch.toString()}
-                    />
                     <Input
                         inputtype="input"
                         id="email"
@@ -146,10 +120,10 @@ function SignUp(props) {
                         valid={password.isValid.toString()}
                         touch={password.isTouch.toString()}
                     />
-                    <Button disabled={!formValidity} btnType="Success">Sign Up</Button>
+                    <Button disabled={!formValidity} btnType="Success">Log In</Button>
                     <p>
-                        Have an account ?&nbsp;
-                        <Link style={styleLink} to="/auth/login">Log In </Link>
+                        Don't have an account ?&nbsp;
+                        <Link style={styleLink} to="/auth/signup">Sign Up </Link>
                     </p>
 
                 </form>}
@@ -159,4 +133,4 @@ function SignUp(props) {
 }
 
 
-export default SignUp;
+export default LogIn;
