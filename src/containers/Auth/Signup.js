@@ -71,7 +71,7 @@ function SignUp(props) {
             console.log(response);
 
         } catch (err) {
-            setError(err.message);
+            setError(err.response.data.error.message);
             setIsLoading(false)
         }
     }
