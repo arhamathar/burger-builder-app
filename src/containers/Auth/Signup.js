@@ -114,14 +114,16 @@ function SignUp(props) {
             default:
                 break;
         }
+    }
 
+    useEffect(() => {
         if (username.isValid && email.isValid && password.isValid) {
             setFormValidity(true);
         }
         else {
             setFormValidity(false);
         }
-    }
+    }, [username.isValid, email.isValid, password.isValid]);
 
     const clearError = () => {
         setError(null);

@@ -5,7 +5,7 @@ import classes from './Navigation.module.css';
 function NavigationItems() {
     return (
         <ul className={classes.NavigationItems}>
-            <li >
+            <li>
                 <NavLink activeClassName={classes.active} exact to="/">Builder</NavLink>
             </li>
             <li>
