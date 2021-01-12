@@ -105,7 +105,7 @@ function SignUp(props) {
                         value: e.target.value,
                         isValid: validate(e.target.value, [
                             VALIDATOR_REQUIRE(),
-                            VALIDATOR_MINLENGTH(6)
+                            VALIDATOR_MINLENGTH(5)
                         ]),
                         isTouch: true
                     }

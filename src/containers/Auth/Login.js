@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-// import axios from '../axios-orders';
+import axios from 'axios';
 import styled from 'styled-components';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import ErrorModal from '../../components/UI/Error/ErrorModal';
@@ -49,8 +49,29 @@ function LogIn(props) {
         isTouch: false
     })
 
+
+    const onSubmitHandler = async (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+        const URL = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_API_KEY}`
+        const authData = {
+            email: email.value,
+            password: password.value,
+            returnSecureToken: true
+        }
+
+        try {
+            const response = await axios.post(URL, authData);
+            setIsLoading(false)
+            console.log(response);
+
+        } catch (err) {
+            setError(err.message);
+            setIsLoading(false)
+        }
+    }
+
     const inputChangeHandler = (e, inputId) => {
-        console.log(e.target.value);
         switch (inputId) {
             case 'email':
                 setEmail(prevState => {
@@ -97,7 +118,7 @@ function LogIn(props) {
             <StyledDiv>
                 {isLoading && <Spinner show={isLoading} />}
                 {!isLoading && <h2 style={{ color: '#404040' }}>LOG IN</h2>}
-                {!isLoading && <form >
+                {!isLoading && <form onSubmit={onSubmitHandler}>
                     <Input
                         inputtype="input"
                         id="email"
@@ -125,7 +146,6 @@ function LogIn(props) {
                         Don't have an account ?&nbsp;
                         <Link style={styleLink} to="/auth/signup">Sign Up </Link>
                     </p>
-
                 </form>}
             </StyledDiv>
         </React.Fragment>
