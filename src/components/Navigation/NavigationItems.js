@@ -11,6 +11,12 @@ function NavigationItems() {
             <li>
                 <NavLink activeClassName={classes.active} to="/orders">My Orders</NavLink>
             </li>
+            <li>
+                <NavLink activeClassName={classes.active} to="/auth/signup">Sign Up</NavLink>
+            </li>
+            <li>
+                <NavLink activeClassName={classes.active} to="/auth/login">Log In</NavLink>
+            </li>
         </ul>
     );
 }
