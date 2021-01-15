@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
@@ -99,14 +99,16 @@ function LogIn(props) {
             default:
                 break;
         }
+    }
 
+    useEffect(() => {
         if (email.isValid && password.isValid) {
             setFormValidity(true);
         }
         else {
             setFormValidity(false);
         }
-    }
+    }, [email.isValid, password.isValid]);
 
     const clearError = () => {
         setError(null);
