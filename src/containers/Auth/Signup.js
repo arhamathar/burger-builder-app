@@ -34,8 +34,10 @@ const styleLink = {
 }
 
 function SignUp(props) {
+    const history = useHistory();
+
     const auth = useContext(AuthContext);
-    // const history = useHistory();
+
     const [error, setError] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [formValidity, setFormValidity] = useState(false);
@@ -72,6 +74,7 @@ function SignUp(props) {
             setIsLoading(false)
             console.log(response);
             auth.login();
+            history.push("/");
 
         } catch (err) {
             setError(err.response.data.error.message);

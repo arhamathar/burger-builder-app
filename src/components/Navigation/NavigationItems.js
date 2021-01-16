@@ -20,6 +20,13 @@ function NavigationItems() {
             {!auth.isLoggedIn && <li>
                 <NavLink activeClassName={classes.active} to="/auth/login">Log In</NavLink>
             </li>}
+            {auth.isLoggedIn && <li>
+                <button
+                    type="button"
+                    activeClassName={classes.active}
+                    onClick={() => auth.logout()}
+                >Log Out</button>
+            </li>}
         </ul>
     );
 }

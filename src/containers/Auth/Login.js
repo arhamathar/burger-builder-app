@@ -34,7 +34,7 @@ const styleLink = {
 }
 
 function LogIn(props) {
-    // const history = useHistory();
+    const history = useHistory();
 
     const auth = useContext(AuthContext);
 
@@ -69,6 +69,7 @@ function LogIn(props) {
             setIsLoading(false)
             console.log(response);
             auth.login();
+            history.push("/");
 
         } catch (err) {
             setError(err.response.data.error.message);
