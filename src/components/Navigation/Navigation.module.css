@@ -27,9 +27,23 @@
     display: block;
 }
 
+.NavigationItems button{
+    background: transparent;
+    outline: none;
+    border: none;
+    color: #fff;
+    letter-spacing: 1px;
+    padding: 1.5rem 1rem;
+    font-size: 1.25rem;
+    cursor: pointer;
+    height: 100%;
+    border-bottom: 4px solid transparent;
+}
+
 .NavigationItems a:hover,
 .NavigationItems a:active,
-.NavigationItems a.active{
+.NavigationItems a.active,
+.NavigationItems button:hover{
     background-color: #8f5c2c;
     border-bottom: 5px solid #40a4cb;
     color: #fff;
