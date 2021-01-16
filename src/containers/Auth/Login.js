@@ -67,8 +67,7 @@ function LogIn(props) {
         try {
             const response = await axios.post(URL, authData);
             setIsLoading(false)
-            console.log(response);
-            auth.login();
+            auth.login(response.data.idToken, response.data.localId);
             history.push("/");
 
         } catch (err) {

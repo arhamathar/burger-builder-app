@@ -10,18 +10,21 @@ import SignUp from './containers/Auth/Signup';
 import { AuthContext } from './context/authContext';
 
 function App() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [token, setToken] = useState(null);
+    const [userId, setUserId] = useState(null);
 
-    const login = () => {
-        setIsLoggedIn(true);
+    const login = (uid, token) => {
+        setToken(token);
+        setUserId(uid);
     }
 
     const logout = () => {
-        setIsLoggedIn(false);
+        setToken(null);
+        setUserId(null);
     }
 
     let routes;
-    if (isLoggedIn) {
+    if (token) {
         routes = (
             <Switch>
                 <Route exact path="/" >
@@ -57,9 +60,9 @@ function App() {
     }
 
     return (
-        <AuthContext.Provider
-            value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
-        >
+        <AuthContext.Provider value={{
+            isLoggedIn: !!token, token: token, userId: userId, login: login, logout: logout
+        }}>
             <Router>
                 <Layout>
                     {routes}
