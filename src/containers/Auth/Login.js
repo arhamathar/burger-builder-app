@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
@@ -6,6 +6,7 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import ErrorModal from '../../components/UI/Error/ErrorModal';
 import Input from '../../components/FormElements/Input/Input';
 import Button from '../../components/FormElements/Button/Button';
+import { AuthContext } from '../../context/authContext';
 import {
     validate,
     VALIDATOR_REQUIRE,
@@ -34,6 +35,9 @@ const styleLink = {
 
 function LogIn(props) {
     // const history = useHistory();
+
+    const auth = useContext(AuthContext);
+
     const [error, setError] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [formValidity, setFormValidity] = useState(false);
@@ -64,6 +68,7 @@ function LogIn(props) {
             const response = await axios.post(URL, authData);
             setIsLoading(false)
             console.log(response);
+            auth.login();
 
         } catch (err) {
             setError(err.response.data.error.message);
