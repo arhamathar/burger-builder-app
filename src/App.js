@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
 import Checkout from './containers/Checkout';
 import BurgerBuilder from './containers/BurgerBuilder';
@@ -20,32 +20,49 @@ function App() {
         setIsLoggedIn(false);
     }
 
+    let routes;
+    if (isLoggedIn) {
+        routes = (
+            <Switch>
+                <Route exact path="/" >
+                    <BurgerBuilder />
+                </Route>
+                <Route path="/checkout">
+                    <Checkout />
+                </Route>
+                <Route path="/orders">
+                    <MyOrders />
+                </Route>
+                <Route path='/contact-data'>
+                    <ContactData />
+                </Route>
+                <Redirect to="/" />
+            </Switch>
+        );
+    } else {
+        routes = (
+            <Switch>
+                <Route exact path="/" >
+                    <BurgerBuilder />
+                </Route>
+                <Route path='/auth/login'>
+                    <LogIn />
+                </Route>
+                <Route path='/auth/signup'>
+                    <SignUp />
+                </Route>
+                <Redirect to="/auth/login" />
+            </Switch>
+        );
+    }
+
     return (
         <AuthContext.Provider
             value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
         >
             <Router>
                 <Layout>
-                    <Switch>
-                        <Route exact path="/" >
-                            <BurgerBuilder />
-                        </Route>
-                        <Route path="/checkout">
-                            <Checkout />
-                        </Route>
-                        <Route path="/orders">
-                            <MyOrders />
-                        </Route>
-                        <Route path='/contact-data'>
-                            <ContactData />
-                        </Route>
-                        <Route path='/auth/login'>
-                            <LogIn />
-                        </Route>
-                        <Route path='/auth/signup'>
-                            <SignUp />
-                        </Route>
-                    </Switch>
+                    {routes}
                 </Layout>
             </Router>
         </AuthContext.Provider>
