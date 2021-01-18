@@ -7,6 +7,7 @@ import Spinner from '../components/UI/Spinner/Spinner';
 import ErrorModal from '../components/UI/Error/ErrorModal';
 import Input from '../components/FormElements/Input/Input';
 import Button from '../components/FormElements/Button/Button';
+import * as actionTypes from '../redux/action';
 import {
     validate,
     VALIDATOR_REQUIRE,
@@ -86,6 +87,7 @@ function ContactData(props) {
             await axios.post('/orders.json', order);
             setIsLoading(false);
             history.push("/");
+            props.setInitialIngredients();
         } catch (err) {
             setError(err.message);
             setIsLoading(false);
@@ -240,4 +242,12 @@ const mapStateToProps = state => {
     };
 }
 
-export default connect(mapStateToProps)(ContactData);
+const mapDispatchToProps = dispatch => {
+    return {
+        setInitialIngredients: () => {
+            dispatch({ type: actionTypes.SET_INITIAL_INGREDIENT });
+        }
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactData);
