@@ -18,18 +18,18 @@ function NavigationItems() {
                 <NavLink activeClassName={classes.active} exact to="/">Builder</NavLink>
             </li>
             {auth.isLoggedIn && <li>
-                <NavLink activeClassName={classes.active} to="/orders">My Orders</NavLink>
+                <NavLink activeclassname={classes.active} to="/orders">My Orders</NavLink>
             </li>}
             {!auth.isLoggedIn && <li>
-                <NavLink activeClassName={classes.active} to="/auth/signup">Sign Up</NavLink>
+                <NavLink activeclassname={classes.active} to="/auth/signup">Sign Up</NavLink>
             </li>}
             {!auth.isLoggedIn && <li>
-                <NavLink activeClassName={classes.active} to="/auth/login">Log In</NavLink>
+                <NavLink activeclassname={classes.active} to="/auth/login">Log In</NavLink>
             </li>}
             {auth.isLoggedIn && <li>
                 <button
                     type="button"
-                    activeClassName={classes.active}
+                    activeclassname={classes.active}
                     onClick={onClickHandler}
                 >Log Out</button>
             </li>}

@@ -72,7 +72,7 @@ function SignUp(props) {
         try {
             const response = await axios.post(URL, authData);
             setIsLoading(false)
-            auth.login(response.data.idToken, response.data.localId);
+            auth.login(response.data.idToken, response.data.localId, response.data.expiresIn);
             history.push("/");
 
         } catch (err) {

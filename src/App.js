@@ -12,25 +12,31 @@ import { AuthContext } from './context/authContext';
 function App() {
     const [token, setToken] = useState(null);
     const [userId, setUserId] = useState(null);
+    const [expirationDate, setExpirationDate] = useState();
 
-    const login = (uid, token) => {
+    const login = (uid, token, expiresIn) => {
         setToken(token);
         setUserId(uid);
+        const tokenExpiration = expiresIn || new Date().getTime() + expiresIn * 1000;
+        setExpirationDate(tokenExpiration);
         localStorage.setItem(
             'userData',
-            JSON.stringify({ userId: uid, token: token }));
+            JSON.stringify({ userId: uid, token: token, expirationDate: new Date(tokenExpiration) }));
     }
 
     const logout = () => {
         setToken(null);
         setUserId(null);
+        setExpirationDate(null);
         localStorage.removeItem('userData');
     }
 
     useEffect(() => {
         const userData = JSON.parse(localStorage.getItem('userData'));
-        if (userData && userData.token) {
-            login(userData.userId, userData.token);
+        console.log(new Date());
+        console.log(new Date(userData.expirationDate));
+        if (userData && userData.token && userData.expirationDate > new Date().toISOString()) {
+            login(userData.userId, userData.token, userData.expirationDate);
         }
     }, []);
 
