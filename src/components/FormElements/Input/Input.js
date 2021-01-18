@@ -18,6 +18,7 @@ const Input = (props) => {
                     className={inputClass.join(' ')}
                     onChange={(e) => props.onChange(e, props.id)}
                     value={props.value}
+                    autoFocus={props.autoFocus}
                 />
             )
             break;

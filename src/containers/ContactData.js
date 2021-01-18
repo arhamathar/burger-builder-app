@@ -180,6 +180,7 @@ function ContactData(props) {
                         type="text"
                         name="name"
                         placeholder="Your Name"
+                        autoFocus
                         onChange={inputChangeHandler}
                         value={name.value}
                         valid={name.isValid.toString()}

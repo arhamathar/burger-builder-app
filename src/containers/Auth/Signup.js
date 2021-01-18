@@ -148,6 +148,7 @@ function SignUp(props) {
                         name="name"
                         placeholder="Your Name"
                         onChange={inputChangeHandler}
+                        autoFocus
                         value={username.value}
                         valid={username.isValid.toString()}
                         touch={username.isTouch.toString()}

@@ -1,10 +1,16 @@
 import React, { useContext } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { AuthContext } from '../../context/authContext'
 import classes from './Navigation.module.css';
 
 function NavigationItems() {
     const auth = useContext(AuthContext);
+    const history = useHistory();
+
+    const onClickHandler = () => {
+        auth.logout();
+        history.push("/auth/login");
+    }
 
     return (
         <ul className={classes.NavigationItems}>
@@ -24,7 +30,7 @@ function NavigationItems() {
                 <button
                     type="button"
                     activeClassName={classes.active}
-                    onClick={() => auth.logout()}
+                    onClick={onClickHandler}
                 >Log Out</button>
             </li>}
         </ul>

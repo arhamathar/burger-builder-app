@@ -133,6 +133,7 @@ function LogIn(props) {
                         name="email"
                         placeholder="xyz@gmail.com"
                         onChange={inputChangeHandler}
+                        autoFocus
                         value={email.value}
                         valid={email.isValid.toString()}
                         touch={email.isTouch.toString()}
