@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
 import Checkout from './containers/Checkout';
@@ -16,12 +16,23 @@ function App() {
     const login = (uid, token) => {
         setToken(token);
         setUserId(uid);
+        localStorage.setItem(
+            'userData',
+            JSON.stringify({ userId: uid, token: token }));
     }
 
     const logout = () => {
         setToken(null);
         setUserId(null);
+        localStorage.removeItem('userData');
     }
+
+    useEffect(() => {
+        const userData = JSON.parse(localStorage.getItem('userData'));
+        if (userData && userData.token) {
+            login(userData.userId, userData.token);
+        }
+    }, []);
 
     let routes;
     if (token) {
