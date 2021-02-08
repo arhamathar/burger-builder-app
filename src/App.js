@@ -9,10 +9,11 @@ import LogIn from './containers/Auth/Login';
 import SignUp from './containers/Auth/Signup';
 import { AuthContext } from './context/authContext';
 
+
 function App() {
     const [token, setToken] = useState(null);
     const [userId, setUserId] = useState(null);
-    const [expirationDate, setExpirationDate] = useState();
+    const [expirationDate, setExpirationDate] = useState(null);
 
     const login = (uid, token, expiresIn) => {
         setToken(token);
@@ -31,10 +32,19 @@ function App() {
         localStorage.removeItem('userData');
     }
 
+    // Auto logout feature after 1h
+    // useEffect(() => {
+    //     if (token && expirationDate < new Date().toISOString()) {
+    //         setTimeout(() => {
+    //             logout()
+    //             console.log(expirationDate);
+    //         }, expirationDate);
+    //     }
+    // }, [token, expirationDate]);
+
     useEffect(() => {
         const userData = JSON.parse(localStorage.getItem('userData'));
-        console.log(new Date());
-        console.log(new Date(userData.expirationDate));
+
         if (userData && userData.token && userData.expirationDate > new Date().toISOString()) {
             login(userData.userId, userData.token, userData.expirationDate);
         }
