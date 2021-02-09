@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import SingleOrder from '../components/Order/SingleOrder';
 import ErrorModal from '../components/UI/Error/ErrorModal';
 import Spinner from '../components/UI/Spinner/Spinner';
 import axios from '../axios-orders';
+import { useContext } from 'react/cjs/react.development';
+import { AuthContext } from '../context/authContext';
 
 
 function MyOrders() {
+    const auth = useContext(AuthContext);
+
     const [error, setError] = useState(false);
     const [orders, setOrders] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -18,10 +23,13 @@ function MyOrders() {
                 let fetchedOrder = [];
 
                 for (let key in response.data) {
-                    fetchedOrder.push({
-                        ...response.data[key],
-                        id: key
-                    });
+                    console.log(key);
+                    if (response.data[key].userId === auth.userId) {
+                        fetchedOrder.push({
+                            ...response.data[key],
+                            id: key
+                        });
+                    }
                 }
                 setOrders(fetchedOrder);
                 setIsLoading(false);
