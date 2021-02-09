@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import ErrorModal from '../../components/UI/Error/ErrorModal';
@@ -68,7 +69,13 @@ function LogIn(props) {
             const response = await axios.post(URL, authData);
             setIsLoading(false)
             auth.login(response.data.idToken, response.data.localId, response.data.expiresIn);
-            history.push("/");
+
+            if (props.ings.cheese || props.ings.patty || props.ings.tomato || props.ings.lettuce) {
+                history.push("/checkout")
+            }
+            else {
+                history.push("/");
+            }
 
         } catch (err) {
             setError(err.response.data.error.message);
@@ -160,5 +167,11 @@ function LogIn(props) {
     );
 }
 
+const mapStateToProps = (state) => {
+    return {
+        ings: state.ingredients,
+        price: state.totalPrice
+    }
+}
 
-export default LogIn;
+export default connect(mapStateToProps)(LogIn);
