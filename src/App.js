@@ -60,7 +60,7 @@ function App() {
                 <Route path="/checkout">
                     <Checkout />
                 </Route>
-                <Route path="/orders">
+                <Route path="/orders/:uid">
                     <MyOrders />
                 </Route>
                 <Route path='/contact-data'>

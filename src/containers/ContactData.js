@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from '../axios-orders';
 import { connect } from 'react-redux';
@@ -7,6 +7,7 @@ import Spinner from '../components/UI/Spinner/Spinner';
 import ErrorModal from '../components/UI/Error/ErrorModal';
 import Input from '../components/FormElements/Input/Input';
 import Button from '../components/FormElements/Button/Button';
+import { AuthContext } from '../context/authContext';
 import * as actionTypes from '../redux/action';
 import {
     validate,
@@ -30,6 +31,8 @@ const StyledDiv = styled.div`
 `;
 
 function ContactData(props) {
+    const auth = useContext(AuthContext);
+
     const [error, setError] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [formValidity, setFormValidity] = useState(false);
@@ -81,7 +84,8 @@ function ContactData(props) {
                     pinCode: pincode
                 }
             },
-            deliveryMethod: delivery
+            deliveryMethod: delivery,
+            userId: auth.userId
         }
         try {
             await axios.post('/orders.json', order);

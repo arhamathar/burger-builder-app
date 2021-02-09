@@ -16,6 +16,7 @@ function MyOrders() {
             try {
                 const response = await axios.get('/orders.json');
                 let fetchedOrder = [];
+
                 for (let key in response.data) {
                     fetchedOrder.push({
                         ...response.data[key],
