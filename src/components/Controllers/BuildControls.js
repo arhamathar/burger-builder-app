@@ -1,6 +1,8 @@
 import React from 'react';
 import SingleControllers from './SingleController';
 import classes from './BuildControls.module.css';
+import { useContext } from 'react/cjs/react.development';
+import { AuthContext } from '../../context/authContext';
 
 const controls = [
     { label: 'Tomato', type: 'tomato' },
@@ -10,6 +12,8 @@ const controls = [
 ];
 
 function BuildControls(props) {
+    const auth = useContext(AuthContext);
+
     return (
         <div className={classes.BuildControls}>
             <p>Current Price: <strong>₹ {props.price}</strong></p>
@@ -28,7 +32,7 @@ function BuildControls(props) {
                 disabled={!props.purchase}
                 className={classes.OrderButton}
                 onClick={props.handleClick}
-            >Order Now</button>
+            >{auth.isLoggedIn ? "Order Now" : "Login to Order"}</button>
         </div>
     );
 }

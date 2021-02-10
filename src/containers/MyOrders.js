@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import SingleOrder from '../components/Order/SingleOrder';
 import ErrorModal from '../components/UI/Error/ErrorModal';
 import Spinner from '../components/UI/Spinner/Spinner';
@@ -23,7 +22,6 @@ function MyOrders() {
                 let fetchedOrder = [];
 
                 for (let key in response.data) {
-                    console.log(key);
                     if (response.data[key].userId === auth.userId) {
                         fetchedOrder.push({
                             ...response.data[key],
