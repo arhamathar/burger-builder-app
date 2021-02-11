@@ -13,7 +13,7 @@ function SideDrawer(props) {
     return (
         <Fragment>
             <Backdrop show={props.show} close={props.hide} />
-            <aside className={`${styleClasses.join(' ')}`}>
+            <aside className={`${styleClasses.join(' ')}`} onClick={props.hide}>
                 <Logo height="14%" />
                 <nav>
                     <NavigationItems />
