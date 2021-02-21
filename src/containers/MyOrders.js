@@ -37,7 +37,7 @@ function MyOrders() {
             }
         }
         sendRequest();
-    }, []);
+    }, [auth.userId]);
 
     const clearErrorHandler = () => {
         setError(null);

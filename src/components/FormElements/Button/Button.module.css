@@ -6,7 +6,6 @@
     cursor: pointer;
     font: inherit;
     padding: 0.5rem 1rem;
-    margin: 2rem ;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-size: 1.35rem;
@@ -20,11 +19,6 @@
     background-color: #5C9210;
     font-weight: 400;
 }
-
-/* .Button:first-of-type {
-    margin-left: 0;
-    padding-left: 0;
-} */
 
 .Success {
     color: #5C9210;
