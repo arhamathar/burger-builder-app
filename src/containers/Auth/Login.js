@@ -68,7 +68,7 @@ function LogIn(props) {
         try {
             const response = await axios.post(URL, authData);
             setIsLoading(false)
-            auth.login(response.data.idToken, response.data.localId, response.data.expiresIn);
+            auth.login(response.data.localId, response.data.idToken, response.data.expiresIn);
 
             if (props.ings.cheese || props.ings.patty || props.ings.tomato || props.ings.lettuce) {
                 history.push("/checkout")

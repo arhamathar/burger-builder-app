@@ -20,11 +20,9 @@ function MyOrders() {
             try {
                 const response = await axios.get('/orders.json');
                 let fetchedOrder = [];
-                console.log(response.data);
 
                 for (let key in response.data) {
                     if (response.data[key].userId === auth.userId) {
-                        console.log("============");
                         fetchedOrder.push({
                             ...response.data[key],
                             id: key

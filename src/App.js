@@ -22,7 +22,7 @@ function App() {
         setExpirationDate(tokenExpiration);
         localStorage.setItem(
             'userData',
-            JSON.stringify({ userId: uid, token: token, expirationDate: new Date(tokenExpiration) }));
+            JSON.stringify({ userId: userId, token: token, expirationDate: new Date(tokenExpiration) }));
     }
 
     const logout = () => {
