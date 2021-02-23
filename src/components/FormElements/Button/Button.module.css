@@ -11,7 +11,7 @@
     font-size: 1.35rem;
     border-radius: 5px;
     text-align: center;
-    margin-bottom: 1rem;
+    margin: 1rem auto;
 }
 
 .Button:hover{
@@ -31,6 +31,7 @@
 .Danger {
     color: #bf1e13;    
     border: 2px solid #bf1e13;
+    margin-right: 2rem;
 }
 
 .Danger:hover{
@@ -47,4 +48,14 @@ Button:disabled{
 .Button:hover:disabled{
     background-color: #ccc;
     color: #777;
+}
+
+@media(max-width: 600px){
+    .Button{
+        margin: 0;
+        margin-top: 1rem;
+    }
+    .Danger {
+        margin-right: 2rem;
+    }
 }
