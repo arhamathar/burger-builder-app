@@ -1,8 +1,0 @@
-div{
-    text-decoration: none;
-    color: #bf1e13;
-}
-/* get orders by userId, currently i'm fetching all orders & then sorting 
-    only orders with authenticated userid 
-    GOAL: only fetch selected order
-*/
