@@ -1,11 +1,11 @@
 import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
-import Checkout from "./containers/Checkout";
-import BurgerBuilder from "./containers/BurgerBuilder";
-import MyOrders from "./containers/MyOrders";
-import ContactData from "./containers/ContactData";
-import LogIn from "./containers/Auth/Login";
-import SignUp from "./containers/Auth/Signup";
+const LogIn = React.lazy(() => import("./containers/Auth/Login"));
+const Checkout = React.lazy(() => import("./containers/Checkout"));
+const MyOrders = React.lazy(() => import("./containers/MyOrders"));
+const SignUp = React.lazy(() => import("./containers/Auth/Signup"));
+const ContactData = React.lazy(() => import("./containers/ContactData"));
+const BurgerBuilder = React.lazy(() => import("./containers/BurgerBuilder"));
 
 function Routes(props) {
     let routes;
@@ -33,10 +33,10 @@ function Routes(props) {
                 <Route exact path="/">
                     <BurgerBuilder />
                 </Route>
-                <Route path="/auth/login">
+                <Route exact path="/auth/login">
                     <LogIn />
                 </Route>
-                <Route path="/auth/signup">
+                <Route exact path="/auth/signup">
                     <SignUp />
                 </Route>
                 <Redirect to="/auth/login" />

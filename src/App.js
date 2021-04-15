@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import Layout from "./components/Layout/Layout";
 import Routes from "./Routes";
+import Layout from "./components/Layout/Layout";
+import Spinner from "./components/UI/Spinner/Spinner";
 import { AuthContext } from "./context/authContext";
 
 function App() {
@@ -66,7 +67,11 @@ function App() {
         >
             <Router>
                 <Layout>
-                    <Routes token={token} />
+                    <Suspense
+                        fallback={<div className="center">Loading ...</div>}
+                    >
+                        <Routes token={token} />
+                    </Suspense>
                 </Layout>
             </Router>
         </AuthContext.Provider>
