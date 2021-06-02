@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Helmet } from 'react-helmet';
 import { useHistory } from 'react-router-dom';
 import axios from '../axios-orders';
 import { connect } from 'react-redux';
@@ -13,9 +14,8 @@ import {
     validate,
     VALIDATOR_REQUIRE,
     VALIDATOR_MAXLENGTH,
-    VALIDATOR_MINLENGTH
+    VALIDATOR_MINLENGTH,
 } from '../utils/Validation';
-
 
 const StyledDiv = styled.div`
     margin: 2rem auto;
@@ -25,7 +25,7 @@ const StyledDiv = styled.div`
     border: 1px solid #ccc;
     padding: 1rem;
     font-size: 1.2rem;
-    @media(min-width: 786px){
+    @media (min-width: 786px) {
         width: 600px;
     }
 `;
@@ -40,33 +40,32 @@ function ContactData(props) {
     const [name, setName] = useState({
         value: '',
         isValid: false,
-        isTouch: false
+        isTouch: false,
     });
     const [city, setCity] = useState({
         value: '',
         isValid: false,
-        isTouch: false
+        isTouch: false,
     });
     const [street, setStreet] = useState({
         value: '',
         isValid: false,
-        isTouch: false
+        isTouch: false,
     });
     const [pincode, setPincode] = useState({
         value: '',
         isValid: false,
-        isTouch: false
+        isTouch: false,
     });
     const [delivery, setDelivery] = useState({
-        value: 'fastest'
+        value: 'fastest',
     });
-
 
     const options = [
         { value: 'fastest', displayValue: 'Fastest' },
         { value: 'normal', displayValue: 'Normal' },
-        { value: 'cheapest', displayValue: 'Cheapest' }
-    ]
+        { value: 'cheapest', displayValue: 'Cheapest' },
+    ];
 
     const history = useHistory();
 
@@ -81,177 +80,204 @@ function ContactData(props) {
                 address: {
                     street: street,
                     city: city,
-                    pinCode: pincode
-                }
+                    pinCode: pincode,
+                },
             },
             deliveryMethod: delivery,
-            userId: auth.userId
-        }
+            userId: auth.userId,
+        };
         try {
             await axios.post('/orders.json', order);
             setIsLoading(false);
-            history.push("/");
+            history.push('/');
             props.setInitialIngredients();
         } catch (err) {
             setError(err.message);
             setIsLoading(false);
         }
-    }
+    };
 
     // how to update state immediately in react see form validation
 
     const inputChangeHandler = (e, inputId) => {
         switch (inputId) {
             case 'name':
-                setName(prevState => {
+                setName((prevState) => {
                     return {
                         ...prevState,
                         value: e.target.value,
-                        isValid: validate(e.target.value, [VALIDATOR_REQUIRE()]),
-                        isTouch: true
-                    }
+                        isValid: validate(e.target.value, [
+                            VALIDATOR_REQUIRE(),
+                        ]),
+                        isTouch: true,
+                    };
                 });
                 break;
             case 'city':
-                setCity(prevState => {
+                setCity((prevState) => {
                     return {
                         ...prevState,
                         value: e.target.value,
-                        isValid: validate(e.target.value, [VALIDATOR_REQUIRE()]),
-                        isTouch: true
-                    }
+                        isValid: validate(e.target.value, [
+                            VALIDATOR_REQUIRE(),
+                        ]),
+                        isTouch: true,
+                    };
                 });
                 break;
             case 'street':
-                setStreet(prevState => {
+                setStreet((prevState) => {
                     return {
                         ...prevState,
                         value: e.target.value,
-                        isValid: validate(e.target.value, [VALIDATOR_REQUIRE()]),
-                        isTouch: true
-                    }
+                        isValid: validate(e.target.value, [
+                            VALIDATOR_REQUIRE(),
+                        ]),
+                        isTouch: true,
+                    };
                 });
                 break;
             case 'pincode':
-                setPincode(prevState => {
+                setPincode((prevState) => {
                     return {
                         ...prevState,
                         value: e.target.value,
                         isValid: validate(e.target.value, [
                             VALIDATOR_REQUIRE(),
                             VALIDATOR_MINLENGTH(6),
-                            VALIDATOR_MAXLENGTH(6)
+                            VALIDATOR_MAXLENGTH(6),
                         ]),
-                        isTouch: true
-                    }
+                        isTouch: true,
+                    };
                 });
                 break;
             case 'delivery':
-                setDelivery(prevState => {
+                setDelivery((prevState) => {
                     return {
                         ...prevState,
-                        value: e.target.value
-                    }
+                        value: e.target.value,
+                    };
                 });
                 break;
             default:
                 break;
         }
-    }
+    };
 
     // to update state immediately in react see form validation
     useEffect(() => {
-        if (name.isValid && city.isValid && street.isValid && pincode.isValid) {
+        if (
+            name.isValid &&
+            city.isValid &&
+            street.isValid &&
+            pincode.isValid
+        ) {
             setFormValidity(true);
-        }
-        else {
+        } else {
             setFormValidity(false);
         }
-    }, [name.isValid, city.isValid, street.isValid, pincode.isValid])
+    }, [name.isValid, city.isValid, street.isValid, pincode.isValid]);
 
     const clearError = () => {
         setError(null);
-    }
+    };
 
     return (
         <React.Fragment>
+            <Helmet>
+                <title>Burger Builder | Contact Details</title>
+                <meta
+                    name='description'
+                    content='Welcome to the Burger Builder App. Fill your contact details for easy delivery.'
+                />
+            </Helmet>
             <ErrorModal showError={error} onClear={clearError} />
             <StyledDiv>
                 {isLoading && <Spinner show={isLoading} />}
                 {!isLoading && <h3>Enter your Contact Data</h3>}
-                {!isLoading && <form onSubmit={orderHandler} >
-                    <Input
-                        inputtype="input"
-                        id="name"
-                        type="text"
-                        name="name"
-                        placeholder="Your Name"
-                        autoFocus
-                        onChange={inputChangeHandler}
-                        value={name.value}
-                        valid={name.isValid.toString()}
-                        touch={name.isTouch.toString()}
-                    />
-                    <Input
-                        inputtype="input"
-                        id="city"
-                        type="text"
-                        name="city"
-                        placeholder="City name"
-                        onChange={inputChangeHandler}
-                        value={city.value}
-                        valid={city.isValid.toString()}
-                        touch={city.isTouch.toString()}
-                    />
-                    <Input
-                        inputtype="input"
-                        id="street"
-                        type="text"
-                        name="street"
-                        placeholder="Street"
-                        onChange={inputChangeHandler}
-                        value={street.value}
-                        valid={street.isValid.toString()}
-                        touch={street.isTouch.toString()}
-                    />
-                    <Input
-                        inputtype="input"
-                        id="pincode"
-                        type="text"
-                        name="pincode"
-                        placeholder="Pin Code"
-                        onChange={inputChangeHandler}
-                        value={pincode.value}
-                        valid={pincode.isValid.toString()}
-                        touch={pincode.isTouch.toString()}
-                    />
-                    <Input
-                        inputtype="select"
-                        id="delivery"
-                        options={options}
-                        onChange={inputChangeHandler}
-                        value={delivery.value}
-                    />
-                    <Button disabled={!formValidity} btnType="Success">Order</Button>
-                </form>}
+                {!isLoading && (
+                    <form onSubmit={orderHandler}>
+                        <Input
+                            inputtype='input'
+                            id='name'
+                            type='text'
+                            name='name'
+                            placeholder='Your Name'
+                            autoFocus
+                            onChange={inputChangeHandler}
+                            value={name.value}
+                            valid={name.isValid.toString()}
+                            touch={name.isTouch.toString()}
+                        />
+                        <Input
+                            inputtype='input'
+                            id='city'
+                            type='text'
+                            name='city'
+                            placeholder='City name'
+                            onChange={inputChangeHandler}
+                            value={city.value}
+                            valid={city.isValid.toString()}
+                            touch={city.isTouch.toString()}
+                        />
+                        <Input
+                            inputtype='input'
+                            id='street'
+                            type='text'
+                            name='street'
+                            placeholder='Street'
+                            onChange={inputChangeHandler}
+                            value={street.value}
+                            valid={street.isValid.toString()}
+                            touch={street.isTouch.toString()}
+                        />
+                        <Input
+                            inputtype='input'
+                            id='pincode'
+                            type='text'
+                            name='pincode'
+                            placeholder='Pin Code'
+                            onChange={inputChangeHandler}
+                            value={pincode.value}
+                            valid={pincode.isValid.toString()}
+                            touch={pincode.isTouch.toString()}
+                        />
+                        <Input
+                            inputtype='select'
+                            id='delivery'
+                            options={options}
+                            onChange={inputChangeHandler}
+                            value={delivery.value}
+                        />
+                        <Button
+                            disabled={!formValidity}
+                            btnType='Success'
+                        >
+                            Order
+                        </Button>
+                    </form>
+                )}
             </StyledDiv>
         </React.Fragment>
     );
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
     return {
         ings: state.ingredients,
-        price: state.totalPrice
+        price: state.totalPrice,
     };
-}
+};
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
     return {
         setInitialIngredients: () => {
             dispatch({ type: actionTypes.SET_INITIAL_INGREDIENT });
-        }
+        },
     };
-}
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContactData);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ContactData);

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
-let logoutTimer;
+// let logoutTimer;
 
 const useAuth = () => {
     const [token, setToken] = useState(null);
@@ -11,10 +11,8 @@ const useAuth = () => {
         (uid, token, expiresIn) => {
             setToken(token);
             setUserId(uid);
-            // console.log('Expiry', expiresIn);
             const tokenExpiration =
                 new Date().getTime() + expiresIn * 1000;
-            // console.log(tokenExpiration);
             setExpirationDate(tokenExpiration);
             localStorage.setItem(
                 'userData',
@@ -49,7 +47,6 @@ const useAuth = () => {
 
     useEffect(() => {
         const userData = JSON.parse(localStorage.getItem('userData'));
-        console.log(userData);
         if (
             userData &&
             userData.token &&
