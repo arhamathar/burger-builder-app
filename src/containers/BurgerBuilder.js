@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import Burger from '../components/Burger/Burger';
 import Summary from '../components/Burger/Summary';
 import Modal from '../components/UI/Modal/Modal';
-import Spinner from '../components/UI/Spinner/Spinner';
 import ErrorModal from '../components/UI/Error/ErrorModal';
 import BuildControls from '../components/Controllers/BuildControls';
 import * as actionTypes from '../redux/action';
@@ -13,24 +12,9 @@ import * as actionTypes from '../redux/action';
 function BurgerBuilder(props) {
     const [showModal, setShowModal] = useState(false);
     const [error, setError] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
+    // const [isLoading, setIsLoading] = useState(false);
 
     const history = useHistory();
-
-    // useEffect(() => {
-    //     setIsLoading(true);
-    //     const getIngredients = async () => {
-    //         try {
-    //             const response = await axios.get('/ingredients.json');
-    //             setIngredients(response.data);
-    //             setIsLoading(false);
-    //         } catch (err) {
-    //             setError(err.message);
-    //             setIsLoading(false);
-    //         }
-    //     }
-    //     getIngredients();
-    // }, []);
 
     const purchaseHandler = () => {
         const sum = Object.keys(props.ingredients)
@@ -76,8 +60,7 @@ function BurgerBuilder(props) {
             </Helmet>
             <ErrorModal showError={error} onClear={clearError} />
             <Modal show={showModal} close={closeModalHandler}>
-                <Spinner show={isLoading} />
-                {!isLoading && props.ingredients && (
+                {props.ingredients && (
                     <Summary
                         ingredients={props.ingredients}
                         price={props.totalPrice}
@@ -85,7 +68,6 @@ function BurgerBuilder(props) {
                     />
                 )}
             </Modal>
-            <Spinner show={isLoading} />
             {props.ingredients && (
                 <Burger ingredients={props.ingredients} />
             )}

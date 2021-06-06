@@ -4,6 +4,7 @@ import Routes from './Routes';
 import Layout from './components/Layout/Layout';
 import { AuthContext } from './context/authContext';
 import useAuth from './hooks/useAuth';
+import Spinner from './components/UI/Spinner/Spinner';
 
 function App() {
     const { token, login, logout, userId } = useAuth();
@@ -22,7 +23,9 @@ function App() {
                 <Layout>
                     <Suspense
                         fallback={
-                            <div className='center'>Loading ...</div>
+                            <div className='center'>
+                                <Spinner fallback />
+                            </div>
                         }
                     >
                         <Routes token={token} />
